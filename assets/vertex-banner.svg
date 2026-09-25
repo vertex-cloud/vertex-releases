@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+<title id="title">VERTEX — Performance System</title><desc id="desc">Canal oficial de distribuição Android do VERTEX</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07090e"/><stop offset="1" stop-color="#101b2d"/></linearGradient><linearGradient id="accent" x2="1"><stop stop-color="#55aaff"/><stop offset="1" stop-color="#b6e2ff"/></linearGradient></defs>
+<rect width="1280" height="520" rx="24" fill="url(#bg)"/><circle cx="1070" cy="160" r="260" fill="#1278da" opacity=".12"/>
+<path d="M850 125h78l75 160 75-160h78L1003 420z" fill="none" stroke="url(#accent)" stroke-width="18" stroke-linejoin="miter"/>
+<text x="78" y="110" fill="#76baff" font-family="Arial,sans-serif" font-size="22" letter-spacing="5">DISTRIBUIÇÃO OFICIAL · ANDROID</text>
+<text x="78" y="235" fill="#f7f9fc" font-family="Arial,sans-serif" font-size="74" font-weight="700">VERTEX</text>
+<text x="78" y="292" fill="#c4cede" font-family="Arial,sans-serif" font-size="28">Performance System</text>
+<path d="M80 342h420" stroke="#4aa5ff" stroke-width="4"/>
+<text x="78" y="395" fill="#edf4ff" font-family="Arial,sans-serif" font-size="31">Treine. Meça. Entenda. Evolua.</text>
+<text x="78" y="458" fill="#9eaabc" font-family="Arial,sans-serif" font-size="20">VERTEX COMMUNITY · v0.9.1</text>
+</svg>
