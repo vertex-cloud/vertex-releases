@@ -1,0 +1,1 @@
+Dia dez construindo o VERTEX. Hoje já somos 54 atletas cadastrados. Agora estou fechando uma parte menos visível, mas importante: organizar os novos assets de treino e limpar o fluxo do Partner Hub dentro do Propel, sem mexer no sistema de indicações. Depois disso, validação web e Android. Cada etapa fechada deixa a Play Store mais perto.

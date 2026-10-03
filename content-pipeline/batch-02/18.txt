@@ -1,0 +1,1 @@
+Salto parado e salto com aproximação não são o mesmo teste. A corrida de aproximação adiciona velocidade e muda a coordenação do movimento. Então, se você quer acompanhar evolução, compare cada tipo com ele mesmo. Misturar os dois pode fazer parecer que você melhorou ou piorou sem realmente ter mudado.

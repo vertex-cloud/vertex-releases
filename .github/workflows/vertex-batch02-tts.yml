@@ -1,0 +1,45 @@
+name: VERTEX Batch 02 Cadu TTS
+
+on:
+  push:
+    paths:
+      - "content-pipeline/batch-02/*.txt"
+      - ".github/workflows/vertex-batch02-tts.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synthesize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Piper and Cadu voice
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .cache/piper .cache/voice content-pipeline/batch-02/audio
+          curl -L --fail --retry 3             "https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_linux_x86_64.tar.gz"             -o /tmp/piper.tar.gz
+          tar -xzf /tmp/piper.tar.gz -C .cache/piper
+          curl -L --fail --retry 3             "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx"             -o .cache/voice/pt_BR-cadu-medium.onnx
+          curl -L --fail --retry 3             "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx.json"             -o .cache/voice/pt_BR-cadu-medium.onnx.json
+
+      - name: Generate narrations
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in content-pipeline/batch-02/*.txt; do
+            name="$(basename "$f" .txt)"
+            text="$(cat "$f")"
+            printf "%s" "$text" | .cache/piper/piper/piper               --model .cache/voice/pt_BR-cadu-medium.onnx               --output_file "content-pipeline/batch-02/audio/${name}.wav"               --length_scale 0.92
+          done
+
+      - name: Upload narration artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vertex-batch02-audio
+          path: content-pipeline/batch-02/audio/*.wav
+          if-no-files-found: error
+          retention-days: 7
