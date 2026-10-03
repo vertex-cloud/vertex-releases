@@ -1,0 +1,1 @@
+Como saber se seu salto realmente melhorou? Teste sempre em condições parecidas. Mesmo aquecimento, mesma superfície e o mesmo método de medição. Faça poucas tentativas boas e registre o melhor resultado. Assim você compara semanas diferentes sem confundir evolução com variação do teste.
