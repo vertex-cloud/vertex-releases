@@ -35,6 +35,14 @@ jobs:
           TEXT="$(cat content-pipeline/input.txt)"
           printf "%s" "$TEXT" | .cache/piper/piper/piper             --model .cache/voice/pt_BR-cadu-medium.onnx             --output_file content-pipeline/out/cadu.wav             --length_scale 0.93
 
+      - name: Upload narration artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vertex-cadu-narration
+          path: content-pipeline/out/cadu.wav
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Commit generated audio
         shell: bash
         run: |
