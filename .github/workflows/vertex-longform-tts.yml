@@ -1,0 +1,42 @@
+name: VERTEX Long Videos Cadu TTS
+
+on:
+  push:
+    paths:
+      - "content-pipeline/long-form/*.txt"
+      - ".github/workflows/vertex-longform-tts.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synthesize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Piper and Cadu voice
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .cache/piper .cache/voice content-pipeline/long-form/audio
+          curl -L --fail --retry 3 "https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_linux_x86_64.tar.gz" -o /tmp/piper.tar.gz
+          tar -xzf /tmp/piper.tar.gz -C .cache/piper
+          curl -L --fail --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx" -o .cache/voice/pt_BR-cadu-medium.onnx
+          curl -L --fail --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx.json" -o .cache/voice/pt_BR-cadu-medium.onnx.json
+      - name: Generate narrations
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in content-pipeline/long-form/*.txt; do
+            name="$(basename "$f" .txt)"
+            text="$(cat "$f")"
+            printf "%s" "$text" | .cache/piper/piper/piper --model .cache/voice/pt_BR-cadu-medium.onnx --output_file "content-pipeline/long-form/audio/${name}.wav" --length_scale 0.96
+          done
+      - name: Upload narrations
+        uses: actions/upload-artifact@v4
+        with:
+          name: vertex-longform-audio
+          path: content-pipeline/long-form/audio/*.wav
+          if-no-files-found: error
+          retention-days: 7
