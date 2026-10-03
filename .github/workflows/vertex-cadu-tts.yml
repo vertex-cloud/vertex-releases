@@ -23,16 +23,10 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p .cache/piper .cache/voice content-pipeline/out
-          if [ ! -x .cache/piper/piper/piper ]; then
-            curl -L --fail --retry 3               "https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_linux_x86_64.tar.gz"               -o /tmp/piper.tar.gz
-            tar -xzf /tmp/piper.tar.gz -C .cache/piper
-          fi
-          if [ ! -f .cache/voice/pt_BR-cadu-medium.onnx ]; then
-            curl -L --fail --retry 3               "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx"               -o .cache/voice/pt_BR-cadu-medium.onnx
-          fi
-          if [ ! -f .cache/voice/pt_BR-cadu-medium.onnx.json ]; then
-            curl -L --fail --retry 3               "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx.json"               -o .cache/voice/pt_BR-cadu-medium.onnx.json
-          fi
+          curl -L --fail --retry 3             "https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_linux_x86_64.tar.gz"             -o /tmp/piper.tar.gz
+          tar -xzf /tmp/piper.tar.gz -C .cache/piper
+          curl -L --fail --retry 3             "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx"             -o .cache/voice/pt_BR-cadu-medium.onnx
+          curl -L --fail --retry 3             "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx.json"             -o .cache/voice/pt_BR-cadu-medium.onnx.json
 
       - name: Generate narration
         shell: bash
@@ -40,7 +34,6 @@ jobs:
           set -euo pipefail
           TEXT="$(cat content-pipeline/input.txt)"
           printf "%s" "$TEXT" | .cache/piper/piper/piper             --model .cache/voice/pt_BR-cadu-medium.onnx             --output_file content-pipeline/out/cadu.wav             --length_scale 0.93
-          ffmpeg -y -i content-pipeline/out/cadu.wav             -af "loudnorm=I=-16:TP=-1.5:LRA=7,acompressor=threshold=-18dB:ratio=2.2:attack=20:release=160"             -codec:a libmp3lame -b:a 160k content-pipeline/out/cadu.mp3
 
       - name: Commit generated audio
         shell: bash
@@ -48,7 +41,7 @@ jobs:
           set -euo pipefail
           git config user.name "vertex-content-bot"
           git config user.email "vertex-content-bot@users.noreply.github.com"
-          git add content-pipeline/out/cadu.wav content-pipeline/out/cadu.mp3
+          git add content-pipeline/out/cadu.wav
           if git diff --cached --quiet; then
             echo "No audio changes."
           else
