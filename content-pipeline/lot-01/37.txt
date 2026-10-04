@@ -1,0 +1,1 @@
+Uma caixa mais alta não prova que o salto foi mais potente. Ao subir demais a caixa, você pode simplesmente puxar mais os joelhos para conseguir pousar. A altura da caixa e a altura real do salto não são a mesma coisa. Para avaliar performance, use medidas que realmente respondam à pergunta do teste.
