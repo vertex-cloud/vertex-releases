@@ -1,0 +1,1 @@
+Seu salto parece alto, mas a medida fica abaixo do que você esperava? O problema pode estar no alcance usado como referência. Se você muda postura, ombro ou posição da mão entre os testes, o número deixa de ser comparável. Antes de pensar em evolução, padronize como você mede. Dados bons começam com um teste consistente.
