@@ -1,0 +1,52 @@
+name: VERTEX Lot 01 Cadu TTS
+
+on:
+  push:
+    paths:
+      - "content-pipeline/lot-01/*.txt"
+      - "content-pipeline/lot-01-long/*.txt"
+      - ".github/workflows/vertex-lot01-tts.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  synthesize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Piper and Cadu voice
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .cache/piper .cache/voice content-pipeline/lot-01/audio content-pipeline/lot-01-long/audio
+          curl -L --fail --retry 3 "https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_linux_x86_64.tar.gz" -o /tmp/piper.tar.gz
+          tar -xzf /tmp/piper.tar.gz -C .cache/piper
+          curl -L --fail --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx" -o .cache/voice/pt_BR-cadu-medium.onnx
+          curl -L --fail --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx.json" -o .cache/voice/pt_BR-cadu-medium.onnx.json
+      - name: Generate short narrations
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in content-pipeline/lot-01/*.txt; do
+            n="$(basename "$f" .txt)"
+            printf "%s" "$(cat "$f")" | .cache/piper/piper/piper --model .cache/voice/pt_BR-cadu-medium.onnx --output_file "content-pipeline/lot-01/audio/$n.wav" --length_scale 0.92
+          done
+      - name: Generate long narrations
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in content-pipeline/lot-01-long/*.txt; do
+            n="$(basename "$f" .txt)"
+            printf "%s" "$(cat "$f")" | .cache/piper/piper/piper --model .cache/voice/pt_BR-cadu-medium.onnx --output_file "content-pipeline/lot-01-long/audio/$n.wav" --length_scale 0.96
+          done
+      - name: Upload lot audio
+        uses: actions/upload-artifact@v4
+        with:
+          name: vertex-lot01-audio
+          path: |
+            content-pipeline/lot-01/audio/*.wav
+            content-pipeline/lot-01-long/audio/*.wav
+          if-no-files-found: error
+          retention-days: 7
