@@ -1,0 +1,1 @@
+Um alvo visual pode mudar sua tentativa de salto. Quando você tenta tocar uma marca, uma tabela ou um objeto, sua intenção e sua coordenação podem mudar. Isso não torna o teste errado. Só significa que você precisa manter o método igual nas comparações. Sem padronização, o número pode enganar.
