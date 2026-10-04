@@ -1,0 +1,1 @@
+Duas tentativas ruins não definem seu nível. Em testes explosivos, pequenas variações acontecem. Uma execução descoordenada, um começo ruim ou uma aterrissagem estranha já mudam o resultado. Em vez de reagir a uma tentativa isolada, registre várias medições consistentes e observe a tendência ao longo do tempo.
