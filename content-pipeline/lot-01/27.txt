@@ -1,0 +1,1 @@
+Salto horizontal e salto vertical parecem parecidos, mas não são o mesmo teste. Um prioriza deslocamento para frente. O outro, altura. A coordenação e a direção da força mudam. Os dois podem trazer informações úteis, mas não misture os números como se fossem equivalentes. Compare cada teste com ele mesmo.
