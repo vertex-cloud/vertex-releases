@@ -1,0 +1,1 @@
+Aterrissar bem não aumenta o número do salto, mas mostra se você controla o movimento que acabou de produzir. Se a aterrissagem desmancha quando a fadiga aparece, isso também é informação para o treino.
