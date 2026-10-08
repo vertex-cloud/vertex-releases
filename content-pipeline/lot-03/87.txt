@@ -1,0 +1,1 @@
+A ordem dos testes pode mudar o resultado. Se você faz sprints, saltos e força antes de medir sua impulsão, o corpo chega em outra condição. Para comparar semanas diferentes, mantenha uma sequência parecida.
