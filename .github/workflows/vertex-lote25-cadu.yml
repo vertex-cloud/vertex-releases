@@ -1,0 +1,45 @@
+name: VERTEX Lote 25 Cadu
+on:
+  push:
+    paths:
+      - "content-pipeline/lote25/scripts.json"
+      - ".github/workflows/vertex-lote25-cadu.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthesize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Piper and Cadu
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .cache/piper .cache/voice content-pipeline/lote25/audio
+          curl -Lf --retry 3 "https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_linux_x86_64.tar.gz" -o /tmp/piper.tar.gz
+          tar -xzf /tmp/piper.tar.gz -C .cache/piper
+          curl -Lf --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx" -o .cache/voice/pt_BR-cadu-medium.onnx
+          curl -Lf --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx.json" -o .cache/voice/pt_BR-cadu-medium.onnx.json
+      - name: Render all 25 narrations
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,subprocess,pathlib
+          scripts=json.load(open("content-pipeline/lote25/scripts.json",encoding="utf-8"))
+          assert len(scripts)==25, len(scripts)
+          for ident,txt in sorted(scripts.items()):
+              out=f"content-pipeline/lote25/audio/{ident}_cadu.wav"
+              subprocess.run([".cache/piper/piper/piper","--model",".cache/voice/pt_BR-cadu-medium.onnx","--output_file",out,"--length_scale","0.94"],input=txt.encode("utf-8"),check=True)
+              assert pathlib.Path(out).stat().st_size>50000
+              print(ident,out,flush=True)
+          PY
+      - name: Upload all 25 WAV files
+        uses: actions/upload-artifact@v4
+        with:
+          name: vertex-lote25-voz-cadu
+          path: content-pipeline/lote25/audio/*.wav
+          if-no-files-found: error
+          retention-days: 14
