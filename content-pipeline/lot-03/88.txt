@@ -1,0 +1,1 @@
+Câmera lenta não é mágica. Se a taxa de quadros muda, o cálculo por vídeo também pode mudar. Para comparar testes gravados, mantenha posição, distância e configuração da câmera o mais parecido possível.
