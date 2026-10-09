@@ -1,0 +1,38 @@
+name: VERTEX YouTube Longo EP01 Cadu
+on:
+  push:
+    paths:
+      - "content-pipeline/youtube-longos/01_voce_treina_mas_esta_evoluindo.txt"
+      - ".github/workflows/vertex-youtube-ep01-cadu.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthesize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Piper and official Cadu voice
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .cache/piper .cache/voice longos-output
+          curl -L --fail --retry 3 "https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_linux_x86_64.tar.gz" -o /tmp/piper.tar.gz
+          tar -xzf /tmp/piper.tar.gz -C .cache/piper
+          curl -L --fail --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx" -o .cache/voice/pt_BR-cadu-medium.onnx
+          curl -L --fail --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx.json" -o .cache/voice/pt_BR-cadu-medium.onnx.json
+      - name: Synthesize Cadu at natural pace
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat content-pipeline/youtube-longos/01_voce_treina_mas_esta_evoluindo.txt | .cache/piper/piper/piper --model .cache/voice/pt_BR-cadu-medium.onnx --output_file longos-output/VERTEX_YT_01_Cadu.wav --length_scale 0.97
+          test -s longos-output/VERTEX_YT_01_Cadu.wav
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vertex-youtube-ep01-cadu
+          path: |
+            longos-output/VERTEX_YT_01_Cadu.wav
+            content-pipeline/youtube-longos/01_voce_treina_mas_esta_evoluindo.txt
+          if-no-files-found: error
+          retention-days: 14
