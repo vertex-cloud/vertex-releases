@@ -39,6 +39,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vertex-lote50-cadu-wav
-          path: content-pipeline/lote50/audio/*.wav
+          path: |
+            content-pipeline/lote50/audio/*.wav
+            content-pipeline/lote50/briefs.json
           if-no-files-found: error
           retention-days: 14
