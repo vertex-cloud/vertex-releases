@@ -1,0 +1,202 @@
+[
+  {
+    "id": "26",
+    "hook": "NÃO CONFUNDA",
+    "subtitle": "Volume não é evolução",
+    "narration": "Você terminou exausto. Mas isso prova evolução? Cansaço mostra esforço, não necessariamente resultado. Compare aquilo que você planejou com o que conseguiu executar. É assim que um treino começa a fazer sentido.",
+    "motif": "split_crack",
+    "music": "trap"
+  },
+  {
+    "id": "27",
+    "hook": "SEGUNDOS CONTAM",
+    "subtitle": "O tempo muda tudo",
+    "narration": "Na velocidade, poucos instantes podem mudar o resultado. Mas comparar tempos só ajuda quando o percurso, a distância e as condições são semelhantes. Medição consistente antes de qualquer conclusão.",
+    "motif": "chrono",
+    "music": "pulse"
+  },
+  {
+    "id": "28",
+    "hook": "SALTO NÃO É TUDO",
+    "subtitle": "Veja além da altura",
+    "narration": "Dois saltos com a mesma altura podem ter execuções diferentes. Observe também a técnica e como você chega ao movimento. A altura importa. O contexto também.",
+    "motif": "trajectory",
+    "music": "ambient"
+  },
+  {
+    "id": "29",
+    "hook": "DIA BOM, DIA RUIM",
+    "subtitle": "Não tire conclusões cedo",
+    "narration": "Um teste ruim não apaga semanas de trabalho. Um teste excelente também não garante que tudo mudou. Olhe uma sequência de registros e procure uma tendência, não um veredito.",
+    "motif": "daynight",
+    "music": "cinematic"
+  },
+  {
+    "id": "30",
+    "hook": "SEM ADIVINHAÇÃO",
+    "subtitle": "Faça a pergunta certa",
+    "narration": "Antes de anotar números, pergunte: o que quero descobrir? Quando o indicador responde a uma dúvida real, registrar o treino deixa de ser burocracia e vira uma ferramenta.",
+    "motif": "question_grid",
+    "music": "tech"
+  },
+  {
+    "id": "31",
+    "hook": "A PAUSA TAMBÉM CONTA",
+    "subtitle": "Recuperar faz parte",
+    "narration": "O intervalo entre esforços não é tempo perdido. Ele influencia a qualidade do que vem depois. Organizar as pausas é uma decisão de treino, assim como escolher a intensidade.",
+    "motif": "breathing",
+    "music": "ambient"
+  },
+  {
+    "id": "32",
+    "hook": "QUANDO MUDAR?",
+    "subtitle": "Não troque tudo toda hora",
+    "narration": "Mudar exercícios todos os dias pode dificultar a comparação. Antes de trocar o plano, avalie se houve tempo suficiente para praticar, registrar e perceber como seu corpo respondeu.",
+    "motif": "swap",
+    "music": "pulse"
+  },
+  {
+    "id": "33",
+    "hook": "OLHE O CONJUNTO",
+    "subtitle": "Uma métrica não basta",
+    "narration": "Seu desempenho não cabe em um número. Medidas ajudam, mas técnica, recuperação e consistência também importam. Bons dados não substituem o olhar sobre o atleta.",
+    "motif": "prism",
+    "music": "cinematic"
+  },
+  {
+    "id": "34",
+    "hook": "COMECE PELO OBJETIVO",
+    "subtitle": "Treino com intenção",
+    "narration": "Quer melhorar uma habilidade? Primeiro defina o objetivo. Depois escolha como vai treinar e o que pretende acompanhar. Quando cada etapa conversa com a outra, o processo ganha direção.",
+    "motif": "arrowfield",
+    "music": "trap"
+  },
+  {
+    "id": "35",
+    "hook": "APÓS O TREINO",
+    "subtitle": "Trinta segundos de clareza",
+    "narration": "Terminou a sessão? Registre o essencial enquanto ainda está fresco na memória. O que foi feito, como foi executado e o que merece atenção. Pequenos registros constroem histórico.",
+    "motif": "recorder",
+    "music": "tech"
+  },
+  {
+    "id": "36",
+    "hook": "NÃO É UMA LINHA RETA",
+    "subtitle": "Evolução tem variações",
+    "narration": "Nem toda melhora aparece em linha reta. Há oscilações naturais entre sessões e testes. O importante é interpretar o comportamento ao longo do tempo sem transformar cada dia em julgamento.",
+    "motif": "zigzag",
+    "music": "ambient"
+  },
+  {
+    "id": "37",
+    "hook": "O QUE VOCÊ COMPARA?",
+    "subtitle": "Padrão antes do gráfico",
+    "narration": "Comparar um salto feito descansado com outro feito cansado pode enganar. Sempre que possível, padronize o teste e registre as condições. Um gráfico só vale a qualidade dos dados.",
+    "motif": "framecompare",
+    "music": "tech"
+  },
+  {
+    "id": "38",
+    "hook": "SEM EXCESSO",
+    "subtitle": "Qualidade vence acúmulo",
+    "narration": "Na preparação física, fazer mais não é automaticamente fazer melhor. A qualidade do movimento e a recuperação importam. Organize a carga de modo adequado ao seu estágio e à orientação profissional.",
+    "motif": "overflow",
+    "music": "cinematic"
+  },
+  {
+    "id": "39",
+    "hook": "O ATLETA MUDA",
+    "subtitle": "O plano acompanha",
+    "narration": "Um plano não precisa ser imutável. Conforme você aprende, descansa e melhora, a forma de organizar o treino também pode mudar. Ajustar com critério é diferente de improvisar.",
+    "motif": "morph",
+    "music": "pulse"
+  },
+  {
+    "id": "40",
+    "hook": "O PODER DO HISTÓRICO",
+    "subtitle": "Sua memória não basta",
+    "narration": "Você consegue lembrar exatamente o que fez em cada treino do mês passado? Um histórico organizado ajuda a comparar períodos sem depender da memória. Essa é uma das ideias do VERTEX Propel.",
+    "motif": "archive",
+    "music": "tech"
+  },
+  {
+    "id": "41",
+    "hook": "TREINE DE VERDADE",
+    "subtitle": "Sem atalhos milagrosos",
+    "narration": "Não existe uma sequência secreta que sirva para todos os atletas. Construir desempenho depende de prática, progressão e consistência. Promessas fáceis não substituem um processo bem feito.",
+    "motif": "barrier",
+    "music": "trap"
+  },
+  {
+    "id": "42",
+    "hook": "ACELERAR E FREAR",
+    "subtitle": "Controle também é potência",
+    "narration": "Desempenho não é só acelerar. Mudar de direção exige controle, coordenação e capacidade de desacelerar. Preparação física precisa considerar o movimento completo, não apenas a velocidade.",
+    "motif": "turnpath",
+    "music": "cinematic"
+  },
+  {
+    "id": "43",
+    "hook": "UMA COISA DE CADA VEZ",
+    "subtitle": "Clareza na avaliação",
+    "narration": "Se você muda o teste, a superfície e o horário ao mesmo tempo, fica mais difícil interpretar o resultado. Defina um protocolo simples e mantenha condições comparáveis.",
+    "motif": "isolate",
+    "music": "ambient"
+  },
+  {
+    "id": "44",
+    "hook": "POR QUE ANOTAR?",
+    "subtitle": "Descubra padrões",
+    "narration": "Anotar um treino parece pouco. Anotar vários cria contexto. Com registros organizados, você começa a perceber padrões e formular perguntas melhores sobre o próprio desempenho.",
+    "motif": "constellation",
+    "music": "tech"
+  },
+  {
+    "id": "45",
+    "hook": "TÉCNICA PRIMEIRO",
+    "subtitle": "O movimento importa",
+    "narration": "Antes de buscar mais carga ou mais velocidade, observe a execução. Uma boa progressão começa com controle e entendimento do exercício. Qualidade é parte do desempenho.",
+    "motif": "lineathlete",
+    "music": "cinematic"
+  },
+  {
+    "id": "46",
+    "hook": "TESTE COM PROPÓSITO",
+    "subtitle": "Nem todo dia é teste",
+    "narration": "Treinar e avaliar têm funções diferentes. Tentar bater recorde em toda sessão pode atrapalhar o planejamento. Escolha momentos de avaliação e preserve espaço para praticar.",
+    "motif": "switch",
+    "music": "pulse"
+  },
+  {
+    "id": "47",
+    "hook": "O QUE MERECE ATENÇÃO?",
+    "subtitle": "Separe sinal de ruído",
+    "narration": "Um número isolado pode chamar atenção. Mas a decisão melhora quando você olha contexto, repetição e consistência. Não confunda uma oscilação de hoje com uma tendência.",
+    "motif": "signal",
+    "music": "ambient"
+  },
+  {
+    "id": "48",
+    "hook": "PLANO, NÃO SORTE",
+    "subtitle": "A evolução deixa pistas",
+    "narration": "Uma sessão pode dar certo por muitos motivos. Um processo organizado permite acompanhar o que se repete. Planeje, execute, registre e revise. A evolução não precisa ficar no escuro.",
+    "motif": "blueprint",
+    "music": "tech"
+  },
+  {
+    "id": "49",
+    "hook": "O MAPA DO ATLETA",
+    "subtitle": "Tudo tem conexão",
+    "narration": "Treino, testes e histórico contam partes da mesma história. O VERTEX Propel reúne essa ideia em uma experiência voltada a acompanhar o percurso do atleta. Menos sessões soltas, mais visão de processo.",
+    "motif": "route",
+    "music": "cinematic"
+  },
+  {
+    "id": "50",
+    "hook": "COMEÇA AGORA",
+    "subtitle": "A próxima sessão importa",
+    "narration": "Você não controla o resultado de amanhã. Mas pode construir um processo melhor hoje. Treine com intenção. Meça com consistência. Acompanhe a evolução. VERTEX Propel. Treine. Meça. Evolua.",
+    "motif": "spotlight",
+    "music": "trap"
+  }
+]
