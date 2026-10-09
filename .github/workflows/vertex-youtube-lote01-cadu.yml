@@ -1,0 +1,56 @@
+name: VERTEX YouTube Lote01 Cadu 02-10
+on:
+  push:
+    paths:
+      - ".github/workflows/vertex-youtube-lote01-cadu.yml"
+      - "content-pipeline/youtube-lote01/*.txt"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        range: ["02-04","05-07","08-10"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch Piper and Cadu
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .cache/piper .cache/voice generated-audio
+          curl -Lf --retry 3 "https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_linux_x86_64.tar.gz" -o /tmp/piper.tar.gz
+          tar -xzf /tmp/piper.tar.gz -C .cache/piper
+          curl -Lf --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx" -o .cache/voice/pt_BR-cadu-medium.onnx
+          curl -Lf --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx.json" -o .cache/voice/pt_BR-cadu-medium.onnx.json
+      - name: Synthesize narration files
+        env:
+          EP_RANGE: ${{ matrix.range }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os, pathlib, subprocess
+          lo,hi=map(int,os.environ['EP_RANGE'].split("-"))
+          inputs=sorted(pathlib.Path('content-pipeline/youtube-lote01').glob('*.txt'))
+          selected=[p for p in inputs if lo<=int(p.stem[:2])<=hi]
+          assert len(selected)==3, [str(p) for p in selected]
+          for p in selected:
+              out=f"generated-audio/{p.stem}_cadu.wav"
+              data=p.read_bytes()
+              subprocess.run([".cache/piper/piper/piper","--model",".cache/voice/pt_BR-cadu-medium.onnx","--output_file",out,"--length_scale","0.96"],input=data,check=True)
+              assert pathlib.Path(out).stat().st_size>1000000
+              print(p.name, pathlib.Path(out).stat().st_size, flush=True)
+          PY
+      - name: Publish isolated artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: vertex-youtube-long-lote01-${{ matrix.range }}
+          path: |
+            generated-audio/*.wav
+            content-pipeline/youtube-lote01/*.txt
+          if-no-files-found: error
+          retention-days: 14
