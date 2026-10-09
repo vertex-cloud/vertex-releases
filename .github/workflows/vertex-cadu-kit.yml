@@ -1,0 +1,32 @@
+name: VERTEX Cadu Local Production Kit
+on:
+  push:
+    paths:
+      - ".github/workflows/vertex-cadu-kit.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download official Piper runtime and Cadu
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p production-kit/piper production-kit/voice
+          curl -Lf --retry 3 "https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_linux_x86_64.tar.gz" -o /tmp/piper.tar.gz
+          tar -xzf /tmp/piper.tar.gz -C production-kit/piper
+          curl -Lf --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx" -o production-kit/voice/pt_BR-cadu-medium.onnx
+          curl -Lf --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx.json" -o production-kit/voice/pt_BR-cadu-medium.onnx.json
+          test -s production-kit/piper/piper/piper
+          test -s production-kit/voice/pt_BR-cadu-medium.onnx
+      - name: Upload reusable production kit
+        uses: actions/upload-artifact@v4
+        with:
+          name: vertex-cadu-production-kit
+          path: production-kit/
+          retention-days: 7
+          if-no-files-found: error
