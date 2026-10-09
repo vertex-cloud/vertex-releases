@@ -1,0 +1,44 @@
+name: VERTEX Lote 50 Cadu TTS
+on:
+  push:
+    paths:
+      - content-pipeline/lote50/briefs.json
+      - .github/workflows/vertex-lote50-cadu.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  voice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up voice synthesizer
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .cache/piper .cache/voice content-pipeline/lote50/audio
+          curl -L --fail --retry 3 "https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_linux_x86_64.tar.gz" -o /tmp/piper.tar.gz
+          tar -xzf /tmp/piper.tar.gz -C .cache/piper
+          curl -L --fail --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx" -o .cache/voice/pt_BR-cadu-medium.onnx
+          curl -L --fail --retry 3 "https://huggingface.co/rhasspy/piper-voices/resolve/main/pt/pt_BR/cadu/medium/pt_BR-cadu-medium.onnx.json" -o .cache/voice/pt_BR-cadu-medium.onnx.json
+      - name: Generate 25 Cadu WAVs
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,subprocess,pathlib
+          items=json.load(open("content-pipeline/lote50/briefs.json",encoding="utf-8"))
+          assert len(items)==25
+          for item in items:
+              outfile=f"content-pipeline/lote50/audio/{item['id']}_cadu.wav"
+              subprocess.run([".cache/piper/piper/piper","--model",".cache/voice/pt_BR-cadu-medium.onnx","--output_file",outfile,"--length_scale","0.90"],input=item["narration"].encode("utf8"),check=True)
+              assert pathlib.Path(outfile).stat().st_size>50000
+              print(item["id"],flush=True)
+          PY
+      - name: Upload narration files
+        uses: actions/upload-artifact@v4
+        with:
+          name: vertex-lote50-cadu-wav
+          path: content-pipeline/lote50/audio/*.wav
+          if-no-files-found: error
+          retention-days: 14
